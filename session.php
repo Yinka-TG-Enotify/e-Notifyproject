@@ -28,3 +28,53 @@
 
 
 ?>
+
+
+<?php require 'db.php';
+
+if (isset($_REQUEST) && !empty ($_POST))
+{
+      $username = $_POST ['username'];
+      $email = $_POST ['email'];
+      $password = md5($_POST ['password']);
+
+    
+      $username = mysqli_real_escape_string($con, $username);
+      $email = mysqli_real_escape_string($con, $email);
+      $password = mysqli_real_escape_string($con, $password);
+
+      $sql = "INSERT INTO users (USERNAME, EMAIL, PWD) VALUES ('$username', '$email', '$password')";
+
+    if (mysqli_query($con, $sql))
+    {
+        $msg = "you have succesfully registered... <a href = 'sign_in_new.php'>LOGIN</a> now..";
+
+        echo "<div class = 'echo'>";
+
+        echo $msg;
+
+        echo "</div>";
+    }
+
+        else
+         {
+            echo "error" .$sql.mysqli_error($con);
+        }
+}
+
+?>
+
+
+
+
+
+// header('location:signin.php');
+        
+        // $msg = "registration succesful. <a href = 'signin.php'>LOGIN</a> now..";
+
+        // echo "<div clss= 'echo'>";
+
+        // echo $msg;
+
+        // echo "</div>";
+      
