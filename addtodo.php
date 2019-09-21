@@ -1,6 +1,6 @@
 <?php
 
-require 'db.php';
+// require 'db.php';
 require 'session.php';
 
 if (isset($_POST['todo'])) {
@@ -10,14 +10,17 @@ if (isset($_POST['todo'])) {
     $sql = "INSERT INTO todos (TITLE, STATUS, USERNAME) VALUES ('$todo', 'false', '$username')";
    
     mysqli_query($con , $sql);
-
-    echo json_encode(array('success' => 1));
+    if($sql)  {
+        $response = array(
+            'status' => 'success'
+        );
+    }else{
+        $response = array(
+            'status' => 'error'
+        );   
+    }
 } 
 
-else 
-{
-    echo json_encode(array('success' => 0));
-}
 
 
 ?>
