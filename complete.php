@@ -1,13 +1,12 @@
 <?php
 
-// require 'db.php';
 require 'session.php';
 
-if (isset($_POST['todo'])) {
+if (isset($_POST['id'])) {
    
-    $todo = $_POST['todo'];
+    $id = $_POST['id'];
 
-    $sql = "INSERT INTO todos (TITLE, STATUS, USERNAME) VALUES ('$todo', false, '$username')";
+    $sql = "UPDATE todos SET STATUS = NOT STATUS WHERE ID = '$id'";
    
     mysqli_query($con , $sql);
     if($sql)  {

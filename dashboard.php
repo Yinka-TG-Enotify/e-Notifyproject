@@ -77,20 +77,13 @@ require_once 'session.php';
   <?php
   $query = "SELECT * FROM todos where USERNAME = '$username'";
   $result = mysqli_query($con, $query);
-  //var_dump($result);
   ?>
 
-
-
-  <div class="table" id="table1">
-    <button id="displaydata" class="btn btn-danger delete">Display List</button>
+  <div class="table col-md-6 mt-5" id="table1">
     <table class="table table-striped table-bordered text-center">
       <thead class="bg-light text-dark">
         <tr>
-          <th>ID</th>
           <th>TITLE</th>
-          <th>STATUS</th>
-          <th>USERNAME</th>
           <th>ACTION</th>
           <th>DONE</th>
 
@@ -102,21 +95,14 @@ require_once 'session.php';
       while ($row = mysqli_fetch_assoc($result)) {
         ?>
         <tr>
-          <td> <?php echo $row["ID"]; ?> </td>
-          <td> <?php echo $row["TITLE"]; ?> </td>
-          <td> <?php echo $row["STATUS"]; ?> </td>
-          <td> <?php echo $row["USERNAME"]; ?> </td>
+          <td class="<?php echo $row["STATUS"] != 0  ? 'complete' : ''?>"> <?php echo $row["TITLE"]; ?> </td>
           <td>
-            <button class="deleteRecord  btn btn-outline-danger" id="del" data-id="<?php echo $row["ID"]; ?>">DELETE</button>
+            <button class="deleteRecord  btn btn-outline-danger btn-sm" id="del" data-id="<?php echo $row["ID"]; ?>">del</button>
             </a>
           </td>
           <td class="marking">
-          <input type="checkbox" class="mark" id="check" style="
-                                            width:30px;
-                                            height:30px;
-                                            /* background:white; */
-                                            border-radius:5px;
-                                            border:2px solid #555;"   />
+            <input type="checkbox" name="bba" class="mark" id="check" data-id="<?php echo $row["ID"]; ?>" 
+            <?php echo $row["STATUS"] != 0  ? "checked='checked'" : ""?> />
           </td>
         </tr>
       <?php
@@ -125,6 +111,7 @@ require_once 'session.php';
     </table>
 
   </div>
+
 
   <!---Delete records--->
   <script>
@@ -146,7 +133,7 @@ require_once 'session.php';
             if (response == 1) {
               // Remove row from HTML Table
               $(el).closest('tr').css('background', 'tomato');
-              $(el).closest('tr').fadeOut(800, function() {
+              $(el).closest('tr').fadeOut(1100, function() {
                 $(this).remove();
               });
             } else {
@@ -177,123 +164,52 @@ require_once 'session.php';
           success: function(data) {
             location.reload();
             if (data) {
-            alert('you have added a todo');
-              // swal({
-              //   title: "Good job!",
-              //   text: "You have added a todo!",
-              //   icon: "success",
-              //   button: "Aww yiss!",
-              // });
-              // var table = $('#table1').DataTable();
- 
-              //     table.ajax.reload( function ( json ) {
-              //         $('#button').val( json.lastInput );
-              //     } );
-
+              alert('you have added a todo');
             } else {
-
-              // swal("There was a problem while adding!", "error");
               alert('There was a problem while adding!');
             }
           }
         });
 
-        // $('ol').append('<li>' + toAdd + '</li>');
-        // $('input[name=todo]').val("");
-
       });
-      // }
 
 
+      // Checkbox//
 
-      $(document).on('click', 'tr', function() {
-        $(this).toggleClass('strike');
+      $(document).on('click', '.mark', function() {
+        var id = $(this).data("id");
+        $.ajax({
+          url: "complete.php/" + id,
+          type: 'POST',
+          data: {
+            "id": id,
+          },
 
-
-        $('input').focus(function() {
-          $(this).val('');
+          success: function(response) {
+            if (response) {
+              alert("Data Update Successfully!!!!");
+              location.reload();
+            }
+          },
+          error: function(response) {
+            if (response == 0) {
+              alert("Error!!!!");
+            }
+          }
         });
-
-        $('tr').sortable();
       });
+
+
     });
-
-
-
-               $('.mark').change(function () {
-
-                if (this.checked) {
-                  $(this).closest("tr").css("text-decoration","line-through");
-                  $(this).closest('tr').css('color', 'red');
-                   $(this).closest('tr').css('font-size', '20px');
-                } else {
-                    $(this).parent().parent().css("text-decoration", "none");
-                    $(this).closest('tr').css('color', 'black');
-                  $(this).closest('tr').css('', 'none');
-                }
-                });
-
-
-      // refresh//
-        // $(document).ready (function()
-        //         {
-                  
-        //         $('body').load('dashboard.php') 
-
-        //           refresh ();
-        //         });
-
-
-        //         function refresh ()
-        //         {
-        //           setTimeout (function()
-        //             {
-        //               $('#table1').load('dashboard.php');
-        //               refresh ();
-        //             },500);
-        //         };
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // refresh//
-    // $(document).ready (function()
-    //         {
-              
-    //         $('body').load('dashboard.php') 
-
-    //           refresh ();
-    //         });
-
-
-    //         function refresh ()
-    //         {
-    //           setTimeout (function()
-    //             {
-    //               $('#table1').load('dashboard.php');
-    //               refresh ();
-    //             },500);
-    //         };
-
-
-
-
-    // var table = $('#table1').DataTable();
- 
-    //         table.ajax.reload( function ( json ) {
-    //             $('#myInput').val( json.lastInput );
-    //         } );
-
   </script>
+
+  <style>
+    .complete{
+      text-decoration: line-through;
+      color:green;
+    }
+
+  </style>
 
   <!-- //jQuery library -->
 
@@ -310,5 +226,3 @@ require_once 'session.php';
 </body>
 
 </html>
-
-
