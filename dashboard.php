@@ -175,22 +175,25 @@ require_once 'session.php';
             "todo": todo,
           },
           success: function(data) {
+            location.reload();
             if (data) {
-              swal({
-                title: "Good job!",
-                text: "You have added a todo!",
-                icon: "success",
-                button: "Aww yiss!",
-              });
-              var table = $('#table1').DataTable();
+            alert('you have added a todo');
+              // swal({
+              //   title: "Good job!",
+              //   text: "You have added a todo!",
+              //   icon: "success",
+              //   button: "Aww yiss!",
+              // });
+              // var table = $('#table1').DataTable();
  
-                  table.ajax.reload( function ( json ) {
-                      $('#button').val( json.lastInput );
-                  } );
+              //     table.ajax.reload( function ( json ) {
+              //         $('#button').val( json.lastInput );
+              //     } );
 
             } else {
 
-              swal("There was a problem while adding!", "error");
+              // swal("There was a problem while adding!", "error");
+              alert('There was a problem while adding!');
             }
           }
         });
@@ -231,6 +234,24 @@ require_once 'session.php';
                 });
 
 
+      // refresh//
+        // $(document).ready (function()
+        //         {
+                  
+        //         $('body').load('dashboard.php') 
+
+        //           refresh ();
+        //         });
+
+
+        //         function refresh ()
+        //         {
+        //           setTimeout (function()
+        //             {
+        //               $('#table1').load('dashboard.php');
+        //               refresh ();
+        //             },500);
+        //         };
 
 
 

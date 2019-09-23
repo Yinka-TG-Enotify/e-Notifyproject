@@ -106,7 +106,7 @@
         $sql = "INSERT INTO users (USERNAME, EMAIL, PWD) VALUES ('$username', '$email', '$password')";
 
         if (mysqli_query($con, $sql)) {
-            $msg = "you have succesfully registered... <a href = 'sign_in_new.php'>LOGIN</a> now..";
+            $msg = "you have succesfully registered... <a href = 'signin.php'>LOGIN</a> now..";
 
             echo "<div class = 'echo'>";
 
