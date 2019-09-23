@@ -92,6 +92,8 @@ require_once 'session.php';
           <th>STATUS</th>
           <th>USERNAME</th>
           <th>ACTION</th>
+          <th>DONE</th>
+
         </tr>
       </thead>
 
@@ -107,6 +109,14 @@ require_once 'session.php';
           <td>
             <button class="deleteRecord  btn btn-outline-danger" id="del" data-id="<?php echo $row["ID"]; ?>">DELETE</button>
             </a>
+          </td>
+          <td class="marking">
+          <input type="checkbox" class="mark" id="check" style="
+                                            width:30px;
+                                            height:30px;
+                                            /* background:white; */
+                                            border-radius:5px;
+                                            border:2px solid #555;"   />
           </td>
         </tr>
       <?php
@@ -193,7 +203,7 @@ require_once 'session.php';
 
 
 
-      $(document).on('dblclick', 'li', function() {
+      $(document).on('click', 'tr', function() {
         $(this).toggleClass('strike');
 
 
@@ -201,9 +211,35 @@ require_once 'session.php';
           $(this).val('');
         });
 
-        $('ol').sortable();
+        $('tr').sortable();
       });
     });
+
+
+
+               $('.mark').change(function () {
+
+                if (this.checked) {
+                  $(this).closest("tr").css("text-decoration","line-through");
+                  $(this).closest('tr').css('color', 'red');
+                   $(this).closest('tr').css('font-size', '20px');
+                } else {
+                    $(this).parent().parent().css("text-decoration", "none");
+                    $(this).closest('tr').css('color', 'black');
+                  $(this).closest('tr').css('', 'none');
+                }
+                });
+
+
+
+
+
+
+
+
+
+
+
 
 
 
