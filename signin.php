@@ -17,6 +17,9 @@
 </head>
 
 <body>
+    
+
+
 
 
     <!-- Default form login -->
@@ -120,7 +123,7 @@
 
     }
 
-
+    require 'footer2.php'
     ?>
 
 

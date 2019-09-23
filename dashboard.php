@@ -16,6 +16,7 @@ require_once 'session.php';
   <!--Favicon-->
   <link rel="stylesheet" href="" type="image/x-icon">
   <!---stylesheets--->
+  <link rel="stylesheet" href= "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="dashboard.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -23,13 +24,15 @@ require_once 'session.php';
 
 <body>
 
-  <div class="container-fluid">
-    <h3 style="text-align:center,">WELCOME <?php echo $username; ?></h3>
+<!-- <div class="container-fluid "> -->
+
+  <div class="container bg-dark text-white">
+    <h3 style="text-center">WELCOME <?php echo $username; ?></h3>
   </div>
 
   <div class="container">
     <h2>Simple To Do List</h2>
-    <p><em>Click and drag to reorder, double click to cross an item off.</em></p>
+    <p><em>Click and drag to reorder, click to cross an item off.</em></p>
 
     <form name="toDoList" class="needs-validation" method="POST" novalidate>
       <!-- <input type="text" id="todoItem" name="todo" /> -->
@@ -48,7 +51,7 @@ require_once 'session.php';
     </form>
 
     <br />
-    <ol></ol>
+    
 
 
 
@@ -65,9 +68,9 @@ require_once 'session.php';
   //logout showing/
 
   if (isset($_SESSION['signed_in']));
-  echo "<a href='logout.php'>Logout</a>";
+  ?> <button class="logout btn-outline-info btn-sm mb-5 text-dark ml-3"> <?php echo "<a href='logout.php'>Logout</a>";?> </button>
 
-  ?>
+  
 
   <!-- Displaying records -->
 
@@ -79,7 +82,7 @@ require_once 'session.php';
   $result = mysqli_query($con, $query);
   ?>
 
-  <div class="table col-md-6 mt-5" id="table1">
+  <div class="table offset-col-md-6 col mt-0" id="table1">
     <table class="table table-striped table-bordered text-center">
       <thead class="bg-light text-dark">
         <tr>
@@ -97,7 +100,7 @@ require_once 'session.php';
         <tr>
           <td class="<?php echo $row["STATUS"] != 0  ? 'complete' : ''?>"> <?php echo $row["TITLE"]; ?> </td>
           <td>
-            <button class="deleteRecord  btn btn-outline-danger btn-sm" id="del" data-id="<?php echo $row["ID"]; ?>">del</button>
+            <button class="deleteRecord  btn btn-outline-danger btn-sm" id="del" data-id="<?php echo $row["ID"]; ?>"><i class="fa fa-trash-o"></i></button>
             </a>
           </td>
           <td class="marking">
@@ -191,6 +194,7 @@ require_once 'session.php';
               location.reload();
             }
           },
+          
           error: function(response) {
             if (response == 0) {
               alert("Error!!!!");
@@ -198,6 +202,33 @@ require_once 'session.php';
           }
         });
       });
+
+
+      // Email//
+
+                        // $(document).on('click', '.mark', function() {
+                        //   var id = $(this).data("id");
+                        //   $.ajax({
+                        //     url: "mail.php/" + id,
+                        //     type: 'POST',
+                        //     data: {
+                        //       "id": id,
+                        //     },
+                            
+                        //     success: function(response) {
+                        //       if (response) {
+                        //         alert("Data Update Successfully!!!!");
+                        //         location.reload();
+                        //       }
+                        //     },
+                            
+                        //     error: function(response) {
+                        //       if (response == 0) {
+                        //         alert("Error!!!!");
+                        //       }
+                        //     }
+                        //   });
+                        // });
 
 
     });
@@ -210,6 +241,24 @@ require_once 'session.php';
     }
 
   </style>
+
+<!-- </div> -->
+
+
+
+<?php
+
+      // foreach ($_POST['id'] as $boxfan){
+      //   if(isset($boxfan)){
+      //       $message = "Yes";
+      //       mail($to, $subject, $message);
+      //   } else{
+      //       $message = "No";
+      //       mail($to, $subject, $message);
+      //   }
+      // }
+
+?>
 
   <!-- //jQuery library -->
 

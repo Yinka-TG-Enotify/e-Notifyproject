@@ -108,16 +108,20 @@
         if (mysqli_query($con, $sql)) {
             $msg = "you have succesfully registered... <a href = 'signin.php'>LOGIN</a> now..";
 
+            // header('location:signin.php');
+
             echo "<div class = 'echo'>";
 
             echo $msg;
 
             echo "</div>";
         } else {
-            echo "error" . $sql . mysqli_error($con);
+            echo "error";
         }
     }
 
+
+    require 'footer2.php'
     ?>
 
 
