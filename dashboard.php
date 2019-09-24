@@ -18,26 +18,52 @@ require_once 'session.php';
   <!---stylesheets--->
   <link rel="stylesheet" href= "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="src/dashboard.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
 
-<!-- <div class="container-fluid "> -->
+         <!----Navbar--->
+
+            <nav class="navbar navbar-expand-lg navbar-dark py-4 grey darken-3 fixed-top">
+
+
+
+          <h1 class="mb-5 site-logo"><a href="index.php" class="text-white h2 mb-0"> E-<span style="color: orangered;">Notify</span></a></h1>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              
+               <!-- //logout showing/ -->
+               
+<?php
+  if (isset($_SESSION['signed_in']));
+  ?> <button class="logout btn-outline-info btn-sm mb-5 text-dark ml-3"> <?php echo "<a href='logout.php'>Logout</a>";?> </button>
+
+            </ul>
+
+          </div>
+          </nav>
+
+
+<div class="container-fluid col-md-6 col-sm-6 mt-5 ">
 
   <div class="container bg-dark text-white">
-    <h3 style="text-center">WELCOME <?php echo $username; ?></h3>
+    <h3 class="text-center">WELCOME <?php echo $username; ?></h3>
   </div>
 
-  <div class="container">
+  <div class="container simple_add text-center">
     <h2>Simple To Do List</h2>
-    <p><em>Click and drag to reorder, click to cross an item off.</em></p>
+    <p><em> click on the checkbox to cross an item off.</em></p>
 
     <form name="toDoList" class="needs-validation" method="POST" novalidate>
       <!-- <input type="text" id="todoItem" name="todo" /> -->
       <div class="form-row">
-        <label for="todoItem">First name</label>
+        <label for="todoItem"></label>
         <input type="text" class="form-control" name="todo" id="todoItem" placeholder="" required>
         <div class="valid-feedback">
           Looks good!
@@ -46,7 +72,7 @@ require_once 'session.php';
           Please provide a task
         </div>
       </div>
-      <button class="btn" id="button" type="submit">Add</button>
+      <button class="btn mt-3" id="button" type="submit">Add</button>
       <!-- <input type="submit" value="Add" id="button" /> -->
     </form>
 
@@ -64,12 +90,8 @@ require_once 'session.php';
   if (!isset($_SESSION['signed_in'])) {
     header('location:index.php');
   }
-
-  //logout showing/
-
-  if (isset($_SESSION['signed_in']));
-  ?> <button class="logout btn-outline-info btn-sm mb-5 text-dark ml-3"> <?php echo "<a href='logout.php'>Logout</a>";?> </button>
-
+?>
+ 
   
 
   <!-- Displaying records -->
@@ -82,7 +104,7 @@ require_once 'session.php';
   $result = mysqli_query($con, $query);
   ?>
 
-  <div class="table offset-col-md-6 col mt-0" id="table1">
+  <div class="table offset-col-md-6 col mt-5" id="table1">
     <table class="table table-striped table-bordered text-center">
       <thead class="bg-light text-dark">
         <tr>
@@ -113,6 +135,7 @@ require_once 'session.php';
       ?>
     </table>
 
+    </div>
   </div>
 
 
@@ -190,7 +213,7 @@ require_once 'session.php';
 
           success: function(response) {
             if (response) {
-              alert("Data Update Successfully!!!!");
+              // alert("Data Update Successfully!!!!");
               location.reload();
             }
           },
@@ -240,9 +263,20 @@ require_once 'session.php';
       color:green;
     }
 
+    body {
+      margin-top: 150px;
+      /* margin-bottom: 150px; */
+     
+
+    }
+
+    .simple_add {
+      width: auto;
+    }
+
   </style>
 
-<!-- </div> -->
+
 
 
 
@@ -264,7 +298,7 @@ require_once 'session.php';
 
   <!-- Popper JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="validate.js"></script>
+  <script src="src/validate.js"></script>
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 

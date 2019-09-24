@@ -26,11 +26,3 @@ if (!$con) { die('Connection Failed: ' . mysqli_error($con)); { mysqli_select_db
 
 
 
-
-// if (mysqli_select_db("db" $con))
-// {   
-//     echo "db active";
-// }
-//     else {
-//         echo "cant find db" . mysqli_error($con);
-//     }

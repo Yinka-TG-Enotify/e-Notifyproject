@@ -23,41 +23,4 @@ echo 0;
 exit;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// if (isset($_POST['ID'])) {
-   
-//     $id = $_POST['ID'];
-
-//     $sql = "DELETE FROM todos WHERE ID = '$id'";
-   
-//     mysqli_query($con,$sql);
-
-//     echo json_encode(array('success' => 1));
-// } 
-
-// else 
-// {
-//     echo json_encode(array('success' => 0));
-// }
-
-
-// ?>
+?>

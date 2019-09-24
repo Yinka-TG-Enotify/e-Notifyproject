@@ -62,6 +62,36 @@
                         <a href="signin.php">Sign In</a>
                     </p>
 
+                    <?php require 'db.php';
+
+                            if (isset($_REQUEST) && !empty($_POST)) {
+                                $username = $_POST['username'];
+                                $email = $_POST['email'];
+                                $password = md5($_POST['password']);
+
+
+                                $username = mysqli_real_escape_string($con, $username);
+                                $email = mysqli_real_escape_string($con, $email);
+                                $password = mysqli_real_escape_string($con, $password);
+
+                                $sql = "INSERT INTO users (USERNAME, EMAIL, PWD) VALUES ('$username', '$email', '$password')";
+
+                                if (mysqli_query($con, $sql)) {
+                                    $msg = "you have succesfully registered... <a href = 'signin.php'>LOGIN</a> now..";
+
+                                    // header('location:signin.php');
+
+                                    echo "<div class = 'echo'>";
+
+                                    echo $msg;
+
+                                    echo "</div>";
+                                } else {
+                                    echo "error";
+                                }
+                            }
+        ?>
+
                     <!-- Social register -->
                     <p>or sign up with:</p>
 
@@ -91,39 +121,21 @@
     <!-- Default form register -->
 
 
-    <?php require 'db.php';
+  
 
-    if (isset($_REQUEST) && !empty($_POST)) {
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $password = md5($_POST['password']);
-
-
-        $username = mysqli_real_escape_string($con, $username);
-        $email = mysqli_real_escape_string($con, $email);
-        $password = mysqli_real_escape_string($con, $password);
-
-        $sql = "INSERT INTO users (USERNAME, EMAIL, PWD) VALUES ('$username', '$email', '$password')";
-
-        if (mysqli_query($con, $sql)) {
-            $msg = "you have succesfully registered... <a href = 'signin.php'>LOGIN</a> now..";
-
-            // header('location:signin.php');
-
-            echo "<div class = 'echo'>";
-
-            echo $msg;
-
-            echo "</div>";
-        } else {
-            echo "error";
-        }
-    }
-
-
+<?php
     require 'footer2.php'
     ?>
 
+
+<style>
+    .echo{
+      font-size: 50px;
+      
+      
+    }
+
+  </style>
 
     <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
